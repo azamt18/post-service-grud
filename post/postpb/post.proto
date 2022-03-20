@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package post;
+option go_package = "post/postpb";
+
+message Post {
+  string id = 1;
+  string user_id = 2;
+  string title = 3;
+  string body = 4;
+}
+
+message ReadPostRequest {
+  string Post_id = 1;
+}
+
+message ReadPostResponse {
+  Post Post = 1;
+}
+
+message UpdatePostRequest {
+  Post Post = 1;
+}
+
+message UpdatePostResponse {
+  Post Post = 1;
+}
+
+message DeletePostRequest {
+  string Post_id = 1;
+}
+
+message DeletePostResponse {
+  string Post_id = 1;
+}
+
+message GetPostsRequest {
+
+}
+
+message GetPostsResponse {
+  Post Post = 1;
+}
+
+
+service PostService {
+  rpc ReadPost (ReadPostRequest) returns (ReadPostResponse) {}; // if not found returns NOT_FOUND response
+  rpc UpdatePost (UpdatePostRequest) returns (UpdatePostResponse) {}; // if not found returns NOT_FOUND response
+  rpc DeletePost (DeletePostRequest) returns (DeletePostResponse) {}; // if not found returns NOT_FOUND response
+  rpc GetPosts (GetPostsRequest) returns (stream GetPostsResponse) {};
+}
